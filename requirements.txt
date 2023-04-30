@@ -1,0 +1,17 @@
+asgiref==3.5.2
+Django
+numpy==1.23.5
+opencv-python-headless==4.6.0.66
+Pillow==9.3.0
+sklearn==0.0.post1
+sqlparse==0.4.3
+tzdata==2022.7
+gunicorn
+numpy
+pandas
+matplotlib
+jupyter
+pillow
+opencv-python
+sklearn
+scikit-learn
