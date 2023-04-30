@@ -1,6 +1,6 @@
 # Elevate_AI_Task 
 
-    This is a project for an AI/ML internship role in Elevate_AI x Moodme, in the web application, i made use of bootstrap for the frontend looks, and the major programming language is python and it's amazing libraries and framework
+This is a project for an AI/ML internship role in Elevate_AI x Moodme, in the web application, i made use of bootstrap for the frontend looks, and the major programming language is python and it's amazing libraries and framework
 
 ## How Final project looks
 ![Face Analysis Prject](./display.png)
