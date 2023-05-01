@@ -38,4 +38,12 @@ This is a project for an AI/ML internship role in Elevate_AI x Moodme, in the we
 
 - [openface](https://github.com/pyannote/pyannote-data/tree/master)
 
-I also made use of some other pretrained models to speed the process
+I also made use of some other pretrained models to speed the process of face recogtion
+
+- machinelearning_face_person_identity.pkl
+
+- openface.nn4.small2.v1.t7
+
+- res10_300x300_ssd_iter_140000.caffemodel
+
+- deploy.prototxt.txt

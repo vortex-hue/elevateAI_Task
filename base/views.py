@@ -5,27 +5,26 @@ from app.machinelearning import pipeline_model
 import os
 from django.conf import settings
 from app.models import FaceRecognition
-# Create your views here.
-
 
 def index(request):
     form = FaceRecognitionform()
-    
+
     if request.method == 'POST':
         form = FaceRecognitionform(request.POST or None, request.FILES or None)
         if form.is_valid():
-            save = form.save(commit=True)
-    
-    #extract the image object from database
-        primary_key = save.pk
-        imgobj = FaceRecognition.objects.get(pk=primary_key)
-        fileroot = str(imgobj.image)
-        filepath = os.path.join(settings.MEDIA_ROOT,fileroot)
-        results = pipeline_model(filepath)
-        print(results)
-    
-        return render (request,'index.html',{'form':form, 'upload':True, 'results':results})
+            # Save the uploaded image to the database
+            imgobj = form.save(commit=True)
+            primary_key = imgobj.pk
 
+            # Extract the image object from database
+            imgobj = FaceRecognition.objects.get(pk=primary_key)
+            fileroot = str(imgobj.image)
+            filepath = os.path.join(settings.MEDIA_ROOT,fileroot)
+            results = pipeline_model(filepath)
+            print(fileroot)
+            print("Hello world\n")
+            print(results)
 
-    return render(request,'index.html',{'form':form, 'upload':False})
-    
+            return render(request, 'index.html', {'form':form, 'upload':True, 'results':results, 'fileroot':fileroot})
+
+    return render(request, 'index.html', {'form':form, 'upload':False})

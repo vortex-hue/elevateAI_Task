@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
 import pickle
-import sklearn 
+import sklearn
 from django.conf import settings
-import os 
+import os
 STATIC_DIR = settings.STATIC_DIR
 
 # face detection
@@ -28,9 +28,9 @@ def pipeline_model(path):
     img_blob = cv2.dnn.blobFromImage(img,1,(300,300),(104,177,123),swapRB=False,crop=False)
     face_detector_model.setInput(img_blob)
     detections = face_detector_model.forward()
-    
+
     # machcine results
-    machinlearning_results = dict(face_detect_score = [], 
+    machinlearning_results = dict(face_detect_score = [],
                                  face_name = [],
                                  face_name_score = [],
                                  emotion_name = [],
@@ -54,7 +54,7 @@ def pipeline_model(path):
                 # predict with machine learning
                 face_name = face_recognition_model.predict(vectors)[0]
                 face_score = face_recognition_model.predict_proba(vectors).max()
-                # EMOTION 
+                # EMOTION
                 emotion_name = emotion_recognition_model.predict(vectors)[0]
                 emotion_score = emotion_recognition_model.predict_proba(vectors).max()
 
@@ -62,20 +62,20 @@ def pipeline_model(path):
                 text_emotion = '{} : {:.0f} %'.format(emotion_name,100*emotion_score)
                 cv2.putText(image,text_face,(startx,starty),cv2.FONT_HERSHEY_PLAIN,2,(255,255,255),2)
                 cv2.putText(image,text_emotion,(startx,endy),cv2.FONT_HERSHEY_PLAIN,2,(255,255,255),2)
-                
-                cv2.imwrite(os.path.join(settings.MEDIA_ROOT, 'ml_output/process.jpg'),image)
-                cv2.imwrite(os.path.join(settings.MEDIA_ROOT, 'ml_output/ roi_{}.jpg'.format(count)),face_roi)
-                
+
+                cv2.imwrite(os.path.join(settings.MEDIA_ROOT, 'ml_output/process.jpg'), image, [cv2.IMWRITE_JPEG_QUALITY, 100])
+                cv2.imwrite(os.path.join(settings.MEDIA_ROOT, 'ml_output/roi_{}.jpg'.format(count)), face_roi, [cv2.IMWRITE_JPEG_QUALITY, 100, cv2.IMWRITE_JPEG_QUALITY, 100])
+
                 machinlearning_results['count'].append(count)
                 machinlearning_results['face_detect_score'].append(confidence)
                 machinlearning_results['face_name'].append(face_name)
                 machinlearning_results['face_name_score'].append(face_score)
                 machinlearning_results['emotion_name'].append(emotion_name)
                 machinlearning_results['emotion_name_score'].append(emotion_score)
-                
+
                 count += 1
-                
-            
+
+
     return machinlearning_results
 
 
